@@ -9,22 +9,23 @@ package pog.theater;
  * @author krym
  */
 public class Kid extends Audience{
-    Adult parent = null;
     
-    public Kid(String name, int age, int seatNo,Adult parent){
+    String parentName;
+    public Kid(String name, int age, int seatNo, String parentName){
         super(name,age,seatNo);
-        this.parent = parent;
+        this.parentName = parentName;
         
     }
     
     
+
     public void displayDetails(){
         super.displayDetails();
-        System.out.print("\t"+parent.getName()+"\t\t"+ seatNo);
+        System.out.print("\t"+parentName+"\t\t\t"+ seatNo);
     }
     
     public String getParentName(){
-        return parent.name;
+        return parentName;
     }
     
     public double calcDisc(){

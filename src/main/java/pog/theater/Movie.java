@@ -25,7 +25,7 @@ public class Movie implements Time, Date{
  
  
  public Movie(){
-     seat = new ArrayList<>(Collections.nCopies(10,false));
+     seat = new ArrayList<>(Collections.nCopies(100,false));
      readInput();
      
  }
@@ -69,6 +69,7 @@ public class Movie implements Time, Date{
      System.out.println("Title: "+ title +"\n"+ "Hall: "+hallNo+"\n"+ "Price: "+ price);
      dispDate();
      dispTime();
+     System.out.println("Price: "+ price);
  }
  public void displayInfoAudience(){
      int i = 1;
@@ -79,8 +80,9 @@ public class Movie implements Time, Date{
          person.displayDetails();
          System.out.println("\t"+price*person.calcDisc());
          ticketTotal += price*person.calcDisc();
+         i++;
      }
-     System.out.println("\n Total ticket price = "+ticketTotal);
+     System.out.println("\nTotal ticket price = "+ticketTotal+"\n");
      
  }
 

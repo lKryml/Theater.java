@@ -11,7 +11,7 @@ import java.util.*;
 public class Theater {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
         ArrayList<Movie> movies = new ArrayList();
         Scanner input = new Scanner(System.in);      
         int choice;
@@ -24,7 +24,9 @@ public class Theater {
             case 1 : System.out.println("<<< Add Movie >>>"); 
             movies.add(new Movie());
             break;
-            case 2 : if(!movies.isEmpty()){System.out.println("<<< Add Audience >>>");
+            case 2 : if(!movies.isEmpty()){
+                boolean addAud = true;
+                while(addAud == true){System.out.println("<<< Add Audience >>>");
                     int i = 0;
                     for(Movie movie : movies){
                         System.out.println(i+1+") "+movie.getTitle()+" ( "+movie.getDate()+" "+movie.getTime()+" )");
@@ -35,50 +37,113 @@ public class Theater {
                     if(mov >0 && mov <=i){
                     Movie selectedMov = movies.get(mov-1);
                     
-                    System.out.print("--- Enter Audience Info ---\n Name: ");
+                    System.out.print("--- Enter Audience Info ---\nName: ");
+                    input.nextLine();
                     String name = input.nextLine();
-                    input.nextLine();
+                    
                     System.out.print("Age: ");
+                    
                     int age = input.nextInt();
-                    input.nextLine();
                     if(age <= 2){
                         System.out.print("Parent Name: ");
+                        input.nextLine();
                         String parentName = input.nextLine();
+                        Boolean loop = true;
+                    while(loop){
+                    System.out.print("SeatNo: ");
+                    int seatNo = input.nextInt();
+                    if(selectedMov.seat.get(seatNo)){
+                        System.out.println("Seat taken choose another please");
+                    }else{
+                        selectedMov.seat.set(seatNo, true);
+                        selectedMov.addAudience(new Kid(name,age,seatNo,parentName));
+                        loop=false;
+                        System.out.print("Press 'Y' to Continue>>> ");
+                        input.nextLine();
+                        
+                        String in = input.nextLine();
+                        
+                        if(!in.equalsIgnoreCase("y")){
+                            addAud = false;
+                        }
                     }
+                    }
+                    
+                    }else{
                     Boolean loop = true;
                     while(loop){
                     System.out.print("SeatNo: ");
                     int seatNo = input.nextInt();
                     if(selectedMov.seat.get(seatNo)){
-                        System.out.print("Seat taken choose another please");
+                        System.out.println("Seat taken choose another please");
                     }else{
                         selectedMov.seat.set(seatNo, true);
+                        
+                        selectedMov.addAudience(new Adult(name,age,seatNo));
                         loop=false;
+                        System.out.print("Press 'Y' to Continue ");
+                        input.nextLine();
+                        
+                        String in = input.nextLine();
+                        
+                        if(!in.equalsIgnoreCase("y")){
+                             
+                            addAud = false;
+                        }
+                        
                     }
                     }
                     
                     }
-     
+                    }
                     else{
                         System.out.println("Movie does not exist");
                     }
-            }else{
+            }}else{
                 System.out.println("No Movies Available add one first");
-                    };
+                    }
             break;
-            case 3: 
-                if(!movies.isEmpty()){
+            case 3 : if(!movies.isEmpty()){
                     for(Movie movie : movies){
-               movie.displayinfomovie();}
+               movie.displayinfomovie();
+                    System.out.println();}
             }else{
                        System.out.println("There are no movies, please add some first");
                        };
                 break;
             
-            case 4: System.out.println("4"); break;
-            case 5: startLoop = false; break;
+            case 4: 
+                System.out.println("<<< Movie(s) and Audience(s) Info >>>");
+                System.out.println("Number of Movies: "+ movies.size()+"\n");
+                
+                int i = 1;
+                if(!movies.isEmpty()){
+                    for(Movie movie : movies){
+               System.out.println("Movie #"+i);
+                        movie.displayinfomovie();
+                        
+                        System.out.println("\nNumber of Audience: "+movie.numAudience+"\nNumber of Adults: "+movie.numAdults+"\nNumber of Kids: "+ movie.numKids+"\n");
+                      movie.displayInfoAudience();
+                    
+                    i++;
+                    }}else{
+                       System.out.println("There are no movies/audiences, please add some first");
+                       };
+                    break;
+            case 5: System.out.println("Thank you"); startLoop = false; break;
             default : System.out.println("Choose a valid Number"); break;
         }
     }
   }
 }
+
+ /* 
+System.out.println("No\tName\t\tAge\tParent Name\t\tSeat No\tTicket(USD)");
+                    for(Audience aud : movie.audienceList){
+                        aud.displayDetails();
+                        System.out.print("\t"+movie.price * aud.calcDisc());
+                        
+                        System.out.print("test");
+                    }
+                    System.out.println("done");
+*/

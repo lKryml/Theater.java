@@ -17,7 +17,7 @@ public class Adult extends Audience {
     
     public void displayDetails(){
         super.displayDetails();
-        System.out.print("\t"+"-"+"\t\t"+seatNo);
+        System.out.print("\t"+"-"+"\t\t\t"+seatNo);
     }
     
     public double calcDisc(){
